@@ -1,43 +1,43 @@
 import { calculateExercises } from "./utils.ts";
 
 interface CalculateExercisesValues {
-	dailyExerciseHours: number[];
-	targetAmount: number;
+  dailyExerciseHours: number[];
+  targetAmount: number;
 }
 
 const parseArguments = (args: string[]): CalculateExercisesValues => {
-	if (args.length < 4) {
-		throw new Error("Not enough arguments");
-	}
+  if (args.length < 4) {
+    throw new Error("Not enough arguments");
+  }
 
-	const targetAmount = Number(args[2]);
+  const targetAmount = Number(args[2]);
 
-	if (Number.isNaN(targetAmount) || targetAmount < 0) {
-		throw new Error("Target amount must be a positive number!");
-	}
+  if (Number.isNaN(targetAmount) || targetAmount < 0) {
+    throw new Error("Target amount must be a positive number!");
+  }
 
-	const dailyExerciseHours = args.slice(3).map((v) => Number(v));
+  const dailyExerciseHours = args.slice(3).map((v) => Number(v));
 
-	if (dailyExerciseHours.some((v) => Number.isNaN(v) || v < 0)) {
-		throw new Error("All daily exercise hours must be a positive number!");
-	}
+  if (dailyExerciseHours.some((v) => Number.isNaN(v) || v < 0)) {
+    throw new Error("All daily exercise hours must be a positive number!");
+  }
 
-	return {
-		dailyExerciseHours,
-		targetAmount,
-	};
+  return {
+    dailyExerciseHours,
+    targetAmount,
+  };
 };
 
 try {
-	const { dailyExerciseHours, targetAmount } = parseArguments(process.argv);
-	const result = calculateExercises(dailyExerciseHours, targetAmount);
-	console.log(result);
+  const { dailyExerciseHours, targetAmount } = parseArguments(process.argv);
+  const result = calculateExercises(dailyExerciseHours, targetAmount);
+  console.log(result);
 } catch (error) {
-	let errorMessage = "Something bad happened.";
+  let errorMessage = "Something bad happened.";
 
-	if (error instanceof Error) {
-		errorMessage += ` Error: ${error.message}`;
-	}
+  if (error instanceof Error) {
+    errorMessage += ` Error: ${error.message}`;
+  }
 
-	console.log(errorMessage);
+  console.log(errorMessage);
 }
