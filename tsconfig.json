@@ -9,16 +9,9 @@
 		// See also https://aka.ms/tsconfig/module
 		"module": "nodenext",
 		"target": "esnext",
-		// "types": [],
-		// For nodejs:
+		"rewriteRelativeImportExtensions": true,
 		"lib": ["esnext"],
 		"types": ["node"],
-		// and npm install -D @types/node
-
-		// Other Outputs
-		"sourceMap": true,
-		"declaration": true,
-		"declarationMap": true,
 
 		// Stricter Typechecking Options
 		"noUncheckedIndexedAccess": true,
@@ -34,11 +27,9 @@
 
 		// Recommended Options
 		"strict": true,
-		"jsx": "react-jsx",
 		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
 		"noUncheckedSideEffectImports": true,
-		"moduleDetection": "force",
-		"skipLibCheck": true
+		"moduleDetection": "force"
 	}
 }

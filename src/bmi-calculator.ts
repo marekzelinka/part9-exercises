@@ -1,37 +1,18 @@
-type Result =
-	| "Underweight (Severe thinness)"
-	| "Underweight (Moderate thinness)"
-	| "Underweight (Mild thinness)"
-	| "Normal range"
-	| "Overweight (Pre-obese)"
-	| "Obese (Class I)"
-	| "Obese (Class II)"
-	| "Obese (Class III)";
+import * as z from "zod";
+import { calculateBmi } from "./utils.ts";
 
-/**
- * @param height height in centimeters
- * @param weight weight in centimeters
- */
-function calculateBmi(height: number, weight: number): Result {
-	const bmi = weight / (height / 100) ** 2;
+const ArgSchema = z.tuple([
+	z.any(),
+	z.any(),
+	z.coerce.number().positive(),
+	z.coerce.number().positive(),
+]);
 
-	if (bmi < 16) {
-		return "Underweight (Severe thinness)";
-	} else if (bmi >= 16 && bmi < 17) {
-		return "Underweight (Moderate thinness)";
-	} else if (bmi >= 17 && bmi < 18.5) {
-		return "Underweight (Mild thinness)";
-	} else if (bmi >= 18.5 && bmi < 25) {
-		return "Normal range";
-	} else if (bmi >= 25 && bmi < 30) {
-		return "Overweight (Pre-obese)";
-	} else if (bmi >= 30 && bmi < 35) {
-		return "Obese (Class I)";
-	} else if (bmi >= 35 && bmi < 40) {
-		return "Obese (Class II)";
-	} else {
-		return "Obese (Class III)";
-	}
+try {
+	const [, , height, weight] = ArgSchema.parse(process.argv);
+	const result = calculateBmi(height, weight);
+	console.log(result);
+} catch (error) {
+	const errorMessage = error instanceof Error ? error.message : "Unknown";
+	console.error(`Something bad happened. Error: ${errorMessage}`);
 }
-
-console.log(calculateBmi(180, 74));
