@@ -1,18 +1,45 @@
-import * as z from "zod";
 import { calculateBmi } from "./utils.ts";
 
-const ArgSchema = z.tuple([
-	z.any(),
-	z.any(),
-	z.coerce.number().positive(),
-	z.coerce.number().positive(),
-]);
+interface CalculateBmiValues {
+	height: number;
+	weight: number;
+}
+
+const parseArguments = (args: string[]): CalculateBmiValues => {
+	if (args.length < 4) {
+		throw new Error("Not enough arguments");
+	} else if (args.length > 4) {
+		throw new Error("Too many arguments");
+	}
+
+	const height = Number(args[2]);
+
+	if (Number.isNaN(height) || height < 0) {
+		throw new Error("Height must be a positive number!");
+	}
+
+	const weight = Number(args[3]);
+
+	if (Number.isNaN(weight) || weight < 0) {
+		throw new Error("Weight must be a positive number!");
+	}
+
+	return {
+		height,
+		weight,
+	};
+};
 
 try {
-	const [, , height, weight] = ArgSchema.parse(process.argv);
+	const { height, weight } = parseArguments(process.argv);
 	const result = calculateBmi(height, weight);
 	console.log(result);
 } catch (error) {
-	const errorMessage = error instanceof Error ? error.message : "Unknown";
-	console.error(`Something bad happened. Error: ${errorMessage}`);
+	let errorMessage = "Something bad happened.";
+
+	if (error instanceof Error) {
+		errorMessage += ` Error: ${error.message}`;
+	}
+
+	console.log(errorMessage);
 }
