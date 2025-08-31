@@ -23,7 +23,6 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"noPropertyAccessFromIndexSignature": true,
 
 		// Recommended Options
 		"strict": true,
