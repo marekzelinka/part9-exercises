@@ -10,7 +10,7 @@
     "format": "prettier . --write --experimental-cli",
     "lint": "eslint ."
   },
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.15.1",
   "devDependencies": {
     "@eslint/js": "^9.34.0",
     "@types/express": "^5.0.3",
