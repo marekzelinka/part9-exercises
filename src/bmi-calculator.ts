@@ -1,4 +1,4 @@
-import { calculateBmi } from "./utils.ts";
+import { calculateBmi } from "./lib/calculate-bmi.ts";
 
 interface CalculateBmiValues {
   height: number;
@@ -32,6 +32,7 @@ const parseArguments = (args: string[]): CalculateBmiValues => {
 
 try {
   const { height, weight } = parseArguments(process.argv);
+
   const result = calculateBmi(height, weight);
   console.log(result);
 } catch (error) {

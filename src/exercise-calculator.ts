@@ -1,4 +1,4 @@
-import { calculateExercises } from "./utils.ts";
+import { calculateExercises } from "./lib/calculate-exercises.ts";
 
 interface CalculateExercisesValues {
   dailyExerciseHours: number[];
@@ -30,6 +30,7 @@ const parseArguments = (args: string[]): CalculateExercisesValues => {
 
 try {
   const { dailyExerciseHours, targetAmount } = parseArguments(process.argv);
+
   const result = calculateExercises(dailyExerciseHours, targetAmount);
   console.log(result);
 } catch (error) {
